@@ -7,9 +7,10 @@ export default function ({ $config: runtimeConfig, store }) {
   }/api/fsxa`;
   const nuxtHost = runtimeConfig.NUXT_HOST || 'localhost'
   const nuxtPort = runtimeConfig.NUXT_PORT || '3000'
+  const serverProtocol = nuxtHost === 'localhost' ? 'http' : 'https'
   const proxyApiConfig = {
     clientUrl: path,
-    serverUrl: `http://${nuxtHost}:${nuxtPort}${path}`,
+    serverUrl: `${serverProtocol}://${nuxtHost}:${nuxtPort}${path}`,
     logLevel: "<%= options.logLevel %>",
     contentMode: runtimeConfig.FSXA_MODE,
   };
