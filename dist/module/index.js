@@ -4,7 +4,9 @@ import defaults from "./defaults";
 import merge from "lodash.merge";
 import createMiddleware from "../api";
 import { FSXARemoteApi, LogLevel } from "fsxa-api";
+// Default values from ENV variables have the highest priority
 const LOG_LEVEL = process.env.FSXA_LOG_LEVEL;
+const LOCALE = process.env.FSXA_LOCALE;
 const FSXAModule = function (moduleOptions) {
   // try to access config file
   let fileConfiguration = {};
@@ -16,6 +18,9 @@ const FSXAModule = function (moduleOptions) {
       // ENV variable will take the priority
       if (LOG_LEVEL && LOG_LEVEL in LogLevel) {
         fileConfiguration["logLevel"] = LOG_LEVEL;
+      }
+      if (LOCALE) {
+        fileConfiguration["defaultLocale"] = LOCALE;
       }
       // watch config file
       if (this.nuxt.options.dev) {
